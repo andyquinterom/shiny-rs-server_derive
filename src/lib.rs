@@ -56,6 +56,20 @@ fn impl_handler_macro(ast: &syn::DeriveInput) -> TokenStream {
                 (self.tick)(self, session)
             }
         }
+        impl ShinyLogic for #name {
+            fn input(&mut self) -> &mut input_pool::InputPool{
+                return &mut self.input;
+            }
+            fn get_last_hb(&self) -> std::time::Instant {
+                return self.hb
+            }
+            fn get_hb_interval(&self) -> std::time::Duration {
+                return self.hb_interval
+            }
+            fn get_client_timeout(&self) -> std::time::Duration {
+                return self.client_timeout
+            }
+        }
     };
     gen.into()
 }
